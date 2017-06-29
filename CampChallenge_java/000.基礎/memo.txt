@@ -1,0 +1,7 @@
+MacBook Pro 
+Mac OS Sierra   version 10.12.5
+プロセッサ　　　2GHz デュアルコア Intel Core i5
+メモリ　　　　　8GB 1867MHz LPDDR3オンボードメモリ
+グラフィックス　Intel Iris Graphic 540
+ディスプレイ　　13.3inch IPSテクノロジー搭載 Retina display
+ストレージ　　　MacintoshHD 256GB PCle ベースオンボードSSD
