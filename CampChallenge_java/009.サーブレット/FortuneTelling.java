@@ -42,6 +42,7 @@ public class FortuneTelling extends HttpServlet {
             //乱数を取得する
             Integer index = rand.nextInt(luckList.length);
             
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -91,6 +92,7 @@ public class FortuneTelling extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    } // </editor-fold>
+    
 }
+
