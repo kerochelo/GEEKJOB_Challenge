@@ -45,9 +45,9 @@
             out.print("1つあたり" + p + "円です。<br>");
             //ポイント付与
             if(t >= 5000){
-                out.print(fip + "%のポイントが付きます！");
+                out.print(fip + "ポイントが付きます！");
             }else if(t >= 3000){
-                out.print(fop + "%のポイントが付きます！");
+                out.print(fop + "ポイントが付きます！");
             }else{
                 out.print("3000円以上からポイントが付きます！");
             }
