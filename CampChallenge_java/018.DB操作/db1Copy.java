@@ -13,13 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.sql.*;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author takahirokanno
  */
-public class DBServlet extends HttpServlet {
-    
+public class db1 extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,49 +35,51 @@ public class DBServlet extends HttpServlet {
      * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
+            throws ServletException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-        Connection db_con = null;
-        PreparedStatement db_st = null;
-        ResultSet db_data = null;
-        
+            Connection db_con = null;
+            PreparedStatement db_st;
+            ResultSet db_data;
+            
             try{
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-                db_con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Challenge_db", "kerochelo", "tkhr8547");
-                
-                db_st = db_con.prepareStatement("select * from user where age = ?");
-                db_st.setInt(1, 24);
-                
-                db_data = db_st.executeQuery();
+                //接続
+                Class.forName("com.jdbc.musql.Driver").newInstance();
+                db_con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Challenge_db", "kerochelo","tkhr8547");
+                //準備
+                db_st = db_con.prepareStatement("select * from profiles where age = ?");
+                db_st.setInt(1, 37);
+                //実行
+                db_data =db_st.executeQuery();
                 while(db_data.next()){
                     out.println("名前:" + db_data.getString("name") + "<br>");
                 }
-                db_con.close();
-                db_st.close();
                 db_data.close();
+                db_st.close();
+                db_con.close();
             }
-            catch(SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e_sql){
-                out.println("接続時にエラーが発生しました" + e_sql.toString());
+            catch(SQLException e_sql){
+                out.println("接続時にエラーが発生しました。" + e_sql.toString());
             }
             finally{
                 if(db_con != null){
                     try{
                         db_con.close();
-                    } 
+                    }
                     catch(SQLException e_con){
-                        System.out.println(e_con.getMessage());
+                        System.out.println("接続時にエラーが発生しました。" + e_con.getMessage());
                     }
                 }
+                
             }
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DBServlet</title>");            
+            out.println("<title>Servlet db1</title>");            
             out.println("</head>");
             out.println("<body>");
+            out.println("<h1>Servlet db1 at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -94,7 +97,11 @@ public class DBServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
+            Logger.getLogger(db1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -108,7 +115,11 @@ public class DBServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
+            Logger.getLogger(db1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
