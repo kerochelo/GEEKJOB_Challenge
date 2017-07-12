@@ -45,7 +45,7 @@ public class db1 extends HttpServlet {
             
             try{
                 //接続
-                Class.forName("com.jdbc.musql.Driver").newInstance();
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
                 db_con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Challenge_db", "kerochelo","tkhr8547");
                 //準備
                 db_st = db_con.prepareStatement("select * from profiles where age = ?");
@@ -79,7 +79,6 @@ public class db1 extends HttpServlet {
             out.println("<title>Servlet db1</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet db1 at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
